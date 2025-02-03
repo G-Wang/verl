@@ -17,7 +17,7 @@ Note that we don't combine the main with ray_trainer as ray_trainer is used by o
 
 from verl import DataProto
 import torch
-from verl.utils.reward_score import gsm8k, math
+from verl.utils.reward_score import gsm8k, gsm8k_deepseek, math
 from verl.trainer.ppo.ray_trainer import RayPPOTrainer
 
 
@@ -26,6 +26,9 @@ def _default_compute_score(data_source, solution_str, ground_truth):
         return gsm8k.compute_score(solution_str, ground_truth)
     elif data_source in ['lighteval/MATH', 'DigitalLearningGmbH/MATH-lighteval']:
         return math.compute_score(solution_str, ground_truth)
+    # TODO: add other deepseek style data or mixture of datasets.
+    elif data_source == 'deepseek/gsm8k':
+        return gsm8k_deepseek.compute_score(solution_str, ground_truth)
     else:
         raise NotImplementedError
 
