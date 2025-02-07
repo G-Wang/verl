@@ -48,12 +48,10 @@ if __name__ == '__main__':
     num_few_shot = 5
     data_source = 'deepseek/gsm8k'
 
-    dataset = datasets.load_dataset(data_source, 'main')
+    dataset = datasets.load_dataset('openai/gsm8k', 'main')
 
     train_dataset = dataset['train']
     test_dataset = dataset['test']
-
-    instruction_following = "Let's think step by step and output the final answer after \"####\"."
 
     # add a row to each data item that represents a unique id
     def make_map_fn(split):
